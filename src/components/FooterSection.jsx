@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Instagram, Twitter, Linkedin, Youtube } from 'lucide-react';
 
-const Footer = () => {
+const Footer = ({ openAbout, openContact, openPrivacy }) => { // ✅ added openPrivacy
   const footerSections = [
     {
       title: 'Product',
@@ -18,7 +18,7 @@ const Footer = () => {
     {
       title: 'Company',
       links: [
-        { label: 'About Us', href: '/about' },
+        { label: 'About Us', action: 'about' },
         { label: 'Careers', href: '/careers' },
         { label: 'Blog', href: '/blog' },
         { label: 'Press Kit', href: '/press' }
@@ -28,9 +28,9 @@ const Footer = () => {
       title: 'Support',
       links: [
         { label: 'Help Center', href: '/help' },
-        { label: 'Contact Us', href: '/contact' },
-        { label: 'Terms of services', href: '/terms' },
-        { label: 'Privacy Policy', href: '/privacy' }
+        { label: 'Contact Us', action: 'contact' },
+        { label: 'Terms of Services', href: '/terms' },
+        { label: 'Privacy Policy', action: 'privacy' } // ✅ modal, not route
       ]
     },
     {
@@ -52,23 +52,39 @@ const Footer = () => {
   return (
     <footer className='bg-black text-gray-400 py-12 px-6 md:px-12 lg:px-24'>
       <div className='max-w-7xl mx-auto'>
-        
-        {/* Footer Links Grid */}
-        <div className='grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12'>
+        <div className='grid grid-cols-2 md:grid-cols-4 gap-8 mb-12'>
           {footerSections.map((section, index) => (
             <div key={index}>
               <h3 className='text-white font-bold text-lg mb-4'>
                 {section.title}
               </h3>
+
               <ul className='space-y-3'>
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
-                    <Link 
-                      href={link.href}
-                      className='hover:text-green-400 transition-colors duration-200 text-sm md:text-base'
-                    >
-                      {link.label}
-                    </Link>
+                    {link.action === 'about' && (
+                      <button onClick={openAbout} className='hover:text-green-400'>
+                        {link.label}
+                      </button>
+                    )}
+
+                    {link.action === 'contact' && (
+                      <button onClick={openContact} className='hover:text-green-400'>
+                        {link.label}
+                      </button>
+                    )}
+
+                    {link.action === 'privacy' && (
+                      <button onClick={openPrivacy} className='hover:text-green-400'>
+                        {link.label}
+                      </button>
+                    )}
+
+                    {!link.action && (
+                      <Link href={link.href} className='hover:text-green-400'>
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -76,48 +92,24 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Divider */}
-        <div className='border-t border-gray-800 mb-8'></div>
+        <div className='border-t border-gray-800 mb-8' />
 
-        {/* Social Links */}
         <div className='flex justify-center gap-6 mb-8'>
           {socialLinks.map((social, index) => (
             <Link
               key={index}
               href={social.href}
               target='_blank'
-              rel='noopener noreferrer'
-              className='w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-green-500 transition-colors duration-300'
-              aria-label={social.label}
+              className='w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-green-500'
             >
               <social.icon size={20} className='text-white' />
             </Link>
           ))}
         </div>
 
-        {/* Contact Email */}
-        <div className='text-center mb-6'>
-          <a 
-            href='mailto:contact@hashforgamers.com'
-            className='text-gray-300 hover:text-green-400 transition-colors duration-200 text-sm md:text-base'
-          >
-            contact@hashforgamers.com
-          </a>
+        <div className='text-center text-gray-500 text-sm'>
+          © 2025 HashForGamers. All rights reserved.
         </div>
-
-        {/* Made with Love */}
-        <div className='text-center mb-6'>
-          <p className='text-sm md:text-base'>
-            Made with <span className='text-red-500'>❤️</span> for Indian Gamers
-          </p>
-          <p className='text-green-400 text-sm mt-1'>#WhereIndiaGames</p>
-        </div>
-
-        {/* Copyright */}
-        <div className='text-center text-xs md:text-sm text-gray-500'>
-          <p>© 2025 HashForGamers. All rights reserved.</p>
-        </div>
-
       </div>
     </footer>
   );
