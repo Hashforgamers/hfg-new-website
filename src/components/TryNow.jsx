@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Menu } from 'lucide-react';
 import { AnimatePresence } from 'framer-motion';
-import Sidebar from './Sidebar';
+import Sidebar from '@/components/common/Sidebar';
+
 import Link from 'next/link';
 
 const HeroSection = () => {

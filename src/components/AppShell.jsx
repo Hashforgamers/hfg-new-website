@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Sidebar from "./Sidebar";
+import Sidebar from '@/components/common/Sidebar';
+
 import Footer from '@/components/FooterSection';
 import AboutUsModal from '@/components/AboutUsModal';
 import ContactUsModal from '@/components/ContactUsModal';
