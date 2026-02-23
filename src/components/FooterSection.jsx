@@ -45,7 +45,7 @@ const Footer = ({
       title: 'For Business',
       links: [
         { label: 'List Your Cafe', href: '/list-cafe' },
-        { label: 'Become a Partner', action: 'partner' }
+        
       ]
     }
   ];
