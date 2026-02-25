@@ -25,7 +25,7 @@ export default function ListYourCafePage() {
       setFormData({
         ...formData,
         state: value,
-        city: "", // reset city when state changes
+        city: "",
       });
     } else {
       setFormData({
@@ -35,15 +35,8 @@ export default function ListYourCafePage() {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    alert("Form Submitted Successfully 🚀");
-  };
-
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-
       {/* Background Video */}
       <video
         autoPlay
@@ -55,17 +48,24 @@ export default function ListYourCafePage() {
         <source src="/gaming-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* Dark Overlay */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
 
       {/* Form Container */}
       <div className="relative z-10 w-[95%] max-w-xl bg-white/10 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-white/20 text-white">
-
         <h2 className="text-3xl font-bold text-center mb-6">
           List Your Cafe With Us
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form
+          action="https://formsubmit.co/support@hashforgamers.com"
+          method="POST"
+          className="space-y-4"
+        >
+          {/* Hidden Fields */}
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_subject" value="New Cafe Listing 🚀" />
+          <input type="hidden" name="_template" value="table" />
 
           {/* Cafe Name */}
           <div>
@@ -81,7 +81,7 @@ export default function ListYourCafePage() {
             />
           </div>
 
-          {/* State Dropdown */}
+          {/* State */}
           <div>
             <label className="block text-sm mb-1">State</label>
             <select
@@ -100,7 +100,7 @@ export default function ListYourCafePage() {
             </select>
           </div>
 
-          {/* City Dropdown */}
+          {/* City */}
           <div>
             <label className="block text-sm mb-1">City</label>
             <select
@@ -135,7 +135,7 @@ export default function ListYourCafePage() {
             />
           </div>
 
-          {/* Contact Number */}
+          {/* Contact */}
           <div>
             <input
               type="tel"

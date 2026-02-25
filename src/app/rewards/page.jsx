@@ -1,76 +1,86 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function RewardsPage() {
-  const [points, setPoints] = useState(1200);
+  const [text, setText] = useState("");
+  const fullText = "Loyalty System Unlocking Soon...";
 
-  const rewards = [
-    { id: 1, title: "Free 1 Hour Gaming", cost: 500 },
-    { id: 2, title: "Free Headset Access", cost: 800 },
-    { id: 3, title: "Tournament Entry Pass", cost: 1500 },
-    { id: 4, title: "Free Snacks Combo", cost: 600 },
-  ];
-
-  const redeemReward = (cost) => {
-    if (points >= cost) {
-      setPoints(points - cost);
-      alert("Reward Redeemed Successfully 🎉");
-    } else {
-      alert("Not Enough Points 😢");
-    }
-  };
+  // Typing Effect
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setText(fullText.slice(0, i));
+      i++;
+      if (i > fullText.length) clearInterval(interval);
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-20">
+    <div className="relative min-h-screen text-white overflow-hidden">
 
-      {/* HEADER */}
-      <div className="text-center mb-16">
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-bold 
-          bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 
-          bg-clip-text text-transparent"
-        >
-          Rewards & Loyalty
-        </motion.h1>
-
-        <p className="mt-6 text-gray-400">
-          Earn points by gaming & shopping. Redeem exclusive rewards!
-        </p>
-
-        <div className="mt-6 text-2xl font-bold text-green-400">
-          Your Points: {points}
-        </div>
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-950 to-black">
+        <motion.div
+          animate={{ opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 4, repeat: Infinity }}
+          className="absolute inset-0 
+          bg-[radial-gradient(circle_at_30%_40%,rgba(255,215,0,0.2),transparent_40%),
+          radial-gradient(circle_at_70%_60%,rgba(255,0,255,0.2),transparent_40%)]"
+        />
       </div>
 
-      {/* REWARDS GRID */}
-      <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-        {rewards.map((reward) => (
+      {/* Scan Line Effect */}
+      <motion.div
+        animate={{ y: ["-100%", "100%"] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+        className="absolute left-0 w-full h-1 bg-gradient-to-r 
+        from-transparent via-yellow-400 to-transparent opacity-40"
+      />
+
+      <div className="relative z-10 px-6 py-24 text-center">
+
+        {/* Glitch Heading */}
+        <motion.h1
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-5xl font-bold mb-16 
+          bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 
+          bg-clip-text text-transparent 
+          drop-shadow-[0_0_20px_rgba(255,215,0,0.8)]"
+        >
+          HASH LOYALTY PROTOCOL
+        </motion.h1>
+
+        {/* Glass Card */}
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="relative mx-auto max-w-2xl p-14 rounded-3xl
+          bg-white/5 backdrop-blur-xl
+          border border-yellow-400/30
+          shadow-[0_0_60px_rgba(255,215,0,0.3)]"
+        >
+          <h2 className="text-3xl font-semibold mb-6 text-yellow-400">
+            {text}
+          </h2>
+
+          <p className="text-gray-300 mb-8">
+            Elite tiers, XP progression, exclusive perks and premium
+            benefits are currently in development.
+          </p>
+
           <motion.div
-            key={reward.id}
-            whileHover={{ scale: 1.05 }}
-            className="bg-zinc-900 p-8 rounded-2xl 
-            border border-yellow-400/20 shadow-lg"
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="text-sm tracking-widest text-yellow-400"
           >
-            <h2 className="text-xl font-semibold mb-4">
-              {reward.title}
-            </h2>
-
-            <p className="text-yellow-400 font-bold mb-6">
-              Required Points: {reward.cost}
-            </p>
-
-            <button
-              onClick={() => redeemReward(reward.cost)}
-              className="w-full bg-yellow-500 py-3 rounded-xl hover:bg-yellow-400 transition font-semibold"
-            >
-              Redeem Now
-            </button>
+            SYSTEM SYNCING...
           </motion.div>
-        ))}
+        </motion.div>
       </div>
     </div>
   );
